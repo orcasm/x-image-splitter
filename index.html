@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>X Image Splitter</title>
+  <meta name="description" content="X(트위터) 연속 이미지용 3분할·4분할 이미지 커터" />
+  <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+  <style>
+    :root {
+      --bg: #0b0d10;
+      --panel: #14171b;
+      --panel-2: #1b1f24;
+      --line: #2a3038;
+      --text: #f4f7fb;
+      --muted: #9aa4b2;
+      --accent: #f4f7fb;
+      --accent-text: #0b0d10;
+      --danger: #ff6b6b;
+      --radius: 18px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 15% 10%, rgba(255,255,255,.06), transparent 30%),
+        var(--bg);
+      color: var(--text);
+      font-family: Inter, Pretendard, "Noto Sans KR", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    .wrap {
+      width: min(980px, calc(100% - 28px));
+      margin: 0 auto;
+      padding: 48px 0 64px;
+    }
+
+    header {
+      margin-bottom: 28px;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: clamp(28px, 5vw, 44px);
+      letter-spacing: -0.04em;
+    }
+
+    .subtitle {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.65;
+      font-size: 15px;
+    }
+
+    .panel {
+      background: rgba(20,23,27,.92);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 18px;
+      box-shadow: 0 20px 50px rgba(0,0,0,.22);
+    }
+
+    .dropzone {
+      min-height: 220px;
+      border: 1.5px dashed #3a424d;
+      border-radius: 15px;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 30px 20px;
+      cursor: pointer;
+      transition: .18s ease;
+      background: linear-gradient(180deg, rgba(255,255,255,.015), transparent);
+    }
+
+    .dropzone:hover,
+    .dropzone.dragover {
+      border-color: #8590a0;
+      background: rgba(255,255,255,.035);
+    }
+
+    .drop-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      margin: 0 auto 14px;
+      background: var(--panel-2);
+      border: 1px solid var(--line);
+      font-size: 22px;
+    }
+
+    .drop-title {
+      font-weight: 800;
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+
+    .drop-hint {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    input[type="file"] { display: none; }
+
+    .controls {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .control-group {
+      background: var(--panel-2);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 14px;
+    }
+
+    .label {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .segmented {
+      display: flex;
+      gap: 8px;
+    }
+
+    button {
+      appearance: none;
+      border: 0;
+      font: inherit;
+    }
+
+    .seg-btn,
+    .action-btn,
+    .small-btn {
+      cursor: pointer;
+      transition: .15s ease;
+    }
+
+    .seg-btn {
+      flex: 1;
+      padding: 11px 12px;
+      border-radius: 10px;
+      color: var(--muted);
+      background: #111419;
+      border: 1px solid var(--line);
+      font-weight: 800;
+    }
+
+    .seg-btn.active {
+      color: var(--accent-text);
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+
+    select {
+      width: 100%;
+      background: #111419;
+      color: var(--text);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 11px 12px;
+      outline: none;
+      font: inherit;
+    }
+
+    .workspace {
+      display: none;
+      margin-top: 18px;
+    }
+
+    .workspace.show { display: block; }
+
+    .info-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .chip {
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: #111419;
+      border: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .preview-shell {
+      background: #090b0e;
+      border: 1px solid var(--line);
+      border-radius: 15px;
+      padding: 14px;
+      overflow: auto;
+    }
+
+    .preview-title {
+      font-size: 12px;
+      color: var(--muted);
+      margin: 0 0 10px;
+    }
+
+    .joined-preview {
+      width: 100%;
+      min-width: 560px;
+      display: flex;
+      gap: 3px;
+      align-items: stretch;
+      overflow: hidden;
+      border-radius: 10px;
+      background: #000;
+    }
+
+    .joined-preview .tile {
+      flex: 1 1 0;
+      min-width: 0;
+      position: relative;
+      overflow: hidden;
+      background: #0e1115;
+    }
+
+    .joined-preview img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    .tile-number {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      width: 25px;
+      height: 25px;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      background: rgba(0,0,0,.68);
+      border: 1px solid rgba(255,255,255,.25);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 900;
+      backdrop-filter: blur(6px);
+    }
+
+    .parts {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .part-card {
+      border: 1px solid var(--line);
+      background: var(--panel-2);
+      border-radius: 13px;
+      overflow: hidden;
+    }
+
+    .part-card img {
+      width: 100%;
+      aspect-ratio: 1 / 1.4;
+      object-fit: cover;
+      display: block;
+      background: #0b0d10;
+    }
+
+    .part-footer {
+      padding: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .part-name {
+      color: var(--muted);
+      font-size: 11px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    .small-btn {
+      background: #111419;
+      color: var(--text);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 7px 9px;
+      font-size: 11px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .small-btn:hover { border-color: #596472; }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .action-btn {
+      flex: 1;
+      padding: 14px 16px;
+      border-radius: 12px;
+      font-weight: 900;
+      border: 1px solid var(--line);
+      background: #111419;
+      color: var(--text);
+    }
+
+    .action-btn.primary {
+      background: var(--accent);
+      color: var(--accent-text);
+      border-color: var(--accent);
+    }
+
+    .action-btn:disabled {
+      opacity: .45;
+      cursor: not-allowed;
+    }
+
+    .privacy {
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.6;
+      text-align: center;
+    }
+
+    .error {
+      display: none;
+      margin-top: 12px;
+      color: #ffd0d0;
+      background: rgba(255,107,107,.09);
+      border: 1px solid rgba(255,107,107,.28);
+      border-radius: 10px;
+      padding: 10px 12px;
+      font-size: 13px;
+    }
+
+    .error.show { display: block; }
+
+    @media (max-width: 720px) {
+      .wrap { padding-top: 28px; }
+      .controls { grid-template-columns: 1fr; }
+      .parts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .joined-preview { min-width: 480px; }
+      .actions { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <header>
+      <h1>X Image Splitter</h1>
+      <p class="subtitle">
+        긴 가로 이미지를 3장 또는 4장으로 균등 분할합니다.<br>
+        X에 1 → 2 → 3 → 4 순서로 올리면 한 장처럼 이어져 보이도록 같은 크기로 출력합니다.
+      </p>
+    </header>
+
+    <section class="panel">
+      <label class="dropzone" id="dropzone" for="fileInput">
+        <div>
+          <div class="drop-icon">＋</div>
+          <div class="drop-title">이미지를 끌어놓거나 클릭해서 선택</div>
+          <div class="drop-hint">PNG · JPG · WEBP 지원<br>이미지는 서버로 업로드되지 않고 브라우저 안에서만 처리됩니다.</div>
+        </div>
+      </label>
+      <input id="fileInput" type="file" accept="image/png,image/jpeg,image/webp" />
+
+      <div class="controls">
+        <div class="control-group">
+          <span class="label">분할 개수</span>
+          <div class="segmented">
+            <button class="seg-btn active" data-split="3" type="button">3분할</button>
+            <button class="seg-btn" data-split="4" type="button">4분할</button>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label class="label" for="formatSelect">저장 형식</label>
+          <select id="formatSelect">
+            <option value="image/png">PNG</option>
+            <option value="image/jpeg">JPG (95%)</option>
+            <option value="image/webp">WEBP (95%)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="error" id="errorBox"></div>
+
+      <section class="workspace" id="workspace">
+        <div class="info-row">
+          <span class="chip" id="originalInfo">원본</span>
+          <span class="chip" id="pieceInfo">분할</span>
+        </div>
+
+        <div class="preview-shell">
+          <p class="preview-title">X에서 가로로 이어졌을 때의 순서 미리보기</p>
+          <div class="joined-preview" id="joinedPreview"></div>
+        </div>
+
+        <div class="parts" id="parts"></div>
+
+        <div class="actions">
+          <button class="action-btn" id="changeImageBtn" type="button">다른 이미지 선택</button>
+          <button class="action-btn primary" id="downloadZipBtn" type="button">전체 ZIP 다운로드</button>
+        </div>
+
+        <p class="privacy">분할 과정은 전부 현재 브라우저에서 실행됩니다. 원본 이미지는 외부 서버로 전송되지 않습니다.</p>
+      </section>
+    </section>
+  </main>
+
+  <script>
+    const fileInput = document.getElementById('fileInput');
+    const dropzone = document.getElementById('dropzone');
+    const workspace = document.getElementById('workspace');
+    const joinedPreview = document.getElementById('joinedPreview');
+    const parts = document.getElementById('parts');
+    const splitButtons = [...document.querySelectorAll('.seg-btn')];
+    const formatSelect = document.getElementById('formatSelect');
+    const originalInfo = document.getElementById('originalInfo');
+    const pieceInfo = document.getElementById('pieceInfo');
+    const downloadZipBtn = document.getElementById('downloadZipBtn');
+    const changeImageBtn = document.getElementById('changeImageBtn');
+    const errorBox = document.getElementById('errorBox');
+
+    let splitCount = 3;
+    let sourceImage = null;
+    let sourceFileName = 'image';
+    let renderedParts = [];
+
+    function showError(message) {
+      errorBox.textContent = message;
+      errorBox.classList.add('show');
+    }
+
+    function clearError() {
+      errorBox.textContent = '';
+      errorBox.classList.remove('show');
+    }
+
+    function baseName(name) {
+      return name.replace(/\.[^/.]+$/, '') || 'image';
+    }
+
+    function extensionFor(mime) {
+      if (mime === 'image/jpeg') return 'jpg';
+      if (mime === 'image/webp') return 'webp';
+      return 'png';
+    }
+
+    function qualityFor(mime) {
+      return mime === 'image/png' ? undefined : 0.95;
+    }
+
+    function loadFile(file) {
+      clearError();
+
+      if (!file || !file.type.startsWith('image/')) {
+        showError('이미지 파일을 선택해 주세요.');
+        return;
+      }
+
+      if (!['image/png', 'image/jpeg', 'image/webp'].includes(file.type)) {
+        showError('PNG, JPG, WEBP 파일만 지원합니다.');
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const img = new Image();
+        img.onload = () => {
+          if (img.naturalWidth < splitCount) {
+            showError('이미지 폭이 너무 작습니다.');
+            return;
+          }
+          sourceImage = img;
+          sourceFileName = baseName(file.name);
+          render();
+          workspace.classList.add('show');
+          workspace.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        };
+        img.onerror = () => showError('이미지를 읽지 못했습니다.');
+        img.src = e.target.result;
+      };
+      reader.onerror = () => showError('파일을 읽는 중 오류가 발생했습니다.');
+      reader.readAsDataURL(file);
+    }
+
+    async function canvasToBlob(canvas, mime, quality) {
+      return new Promise((resolve, reject) => {
+        canvas.toBlob((blob) => {
+          if (blob) resolve(blob);
+          else reject(new Error('이미지 변환에 실패했습니다.'));
+        }, mime, quality);
+      });
+    }
+
+    async function render() {
+      if (!sourceImage) return;
+
+      clearError();
+      renderedParts.forEach(p => URL.revokeObjectURL(p.url));
+      renderedParts = [];
+      joinedPreview.innerHTML = '';
+      parts.innerHTML = '';
+
+      const mime = formatSelect.value;
+      const ext = extensionFor(mime);
+      const quality = qualityFor(mime);
+
+      // 모든 조각의 픽셀 크기를 완전히 같게 하기 위해
+      // 원본 폭을 가장 가까운 "분할 개수의 배수"로 아주 미세하게 보정합니다.
+      const originalW = sourceImage.naturalWidth;
+      const originalH = sourceImage.naturalHeight;
+      const pieceW = Math.max(1, Math.round(originalW / splitCount));
+      const normalizedW = pieceW * splitCount;
+      const normalizedH = originalH;
+
+      const master = document.createElement('canvas');
+      master.width = normalizedW;
+      master.height = normalizedH;
+      const mctx = master.getContext('2d', { alpha: true });
+      mctx.imageSmoothingEnabled = true;
+      mctx.imageSmoothingQuality = 'high';
+      mctx.drawImage(sourceImage, 0, 0, normalizedW, normalizedH);
+
+      originalInfo.textContent = `원본 ${originalW} × ${originalH}px`;
+      pieceInfo.textContent = `${splitCount}분할 · 각 ${pieceW} × ${normalizedH}px`;
+
+      try {
+        for (let i = 0; i < splitCount; i++) {
+          const canvas = document.createElement('canvas');
+          canvas.width = pieceW;
+          canvas.height = normalizedH;
+
+          const ctx = canvas.getContext('2d', { alpha: true });
+          ctx.drawImage(
+            master,
+            i * pieceW, 0, pieceW, normalizedH,
+            0, 0, pieceW, normalizedH
+          );
+
+          const blob = await canvasToBlob(canvas, mime, quality);
+          const url = URL.createObjectURL(blob);
+          const index = String(i + 1).padStart(2, '0');
+          const filename = `${sourceFileName}_${index}.${ext}`;
+
+          renderedParts.push({ blob, url, filename });
+
+          const tile = document.createElement('div');
+          tile.className = 'tile';
+          tile.innerHTML = `
+            <img src="${url}" alt="${i + 1}번 분할 이미지">
+            <span class="tile-number">${i + 1}</span>
+          `;
+          joinedPreview.appendChild(tile);
+
+          const card = document.createElement('article');
+          card.className = 'part-card';
+          card.innerHTML = `
+            <img src="${url}" alt="${i + 1}번 분할 이미지">
+            <div class="part-footer">
+              <span class="part-name">${filename}</span>
+              <button class="small-btn" type="button">다운로드</button>
+            </div>
+          `;
+          card.querySelector('button').addEventListener('click', () => {
+            downloadBlob(blob, filename);
+          });
+          parts.appendChild(card);
+        }
+      } catch (err) {
+        console.error(err);
+        showError('분할 이미지를 만드는 중 오류가 발생했습니다.');
+      }
+    }
+
+    function downloadBlob(blob, filename) {
+      const tempUrl = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = tempUrl;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(() => URL.revokeObjectURL(tempUrl), 1000);
+    }
+
+    splitButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        splitButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        splitCount = Number(btn.dataset.split);
+        if (sourceImage) render();
+      });
+    });
+
+    formatSelect.addEventListener('change', () => {
+      if (sourceImage) render();
+    });
+
+    changeImageBtn.addEventListener('click', () => fileInput.click());
+    fileInput.addEventListener('change', () => loadFile(fileInput.files[0]));
+
+    ['dragenter', 'dragover'].forEach(type => {
+      dropzone.addEventListener(type, (e) => {
+        e.preventDefault();
+        dropzone.classList.add('dragover');
+      });
+    });
+
+    ['dragleave', 'drop'].forEach(type => {
+      dropzone.addEventListener(type, (e) => {
+        e.preventDefault();
+        dropzone.classList.remove('dragover');
+      });
+    });
+
+    dropzone.addEventListener('drop', (e) => {
+      const file = e.dataTransfer.files?.[0];
+      if (file) loadFile(file);
+    });
+
+    downloadZipBtn.addEventListener('click', async () => {
+      if (!renderedParts.length) return;
+
+      if (typeof JSZip === 'undefined') {
+        showError('ZIP 라이브러리를 불러오지 못했습니다. 인터넷 연결을 확인해 주세요.');
+        return;
+      }
+
+      downloadZipBtn.disabled = true;
+      const oldText = downloadZipBtn.textContent;
+      downloadZipBtn.textContent = 'ZIP 만드는 중…';
+
+      try {
+        const zip = new JSZip();
+        renderedParts.forEach(part => {
+          zip.file(part.filename, part.blob);
+        });
+
+        const zipBlob = await zip.generateAsync({ type: 'blob' });
+        downloadBlob(zipBlob, `${sourceFileName}_${splitCount}split.zip`);
+      } catch (err) {
+        console.error(err);
+        showError('ZIP 파일을 만드는 중 오류가 발생했습니다.');
+      } finally {
+        downloadZipBtn.disabled = false;
+        downloadZipBtn.textContent = oldText;
+      }
+    });
+  </script>
+</body>
+</html>
