@@ -1,28 +1,9 @@
-# X Image Splitter
+# X Image Splitter — Studio
 
-X(트위터)에 여러 장을 가로로 연속 업로드했을 때 한 장처럼 이어져 보이도록
-이미지를 3장 또는 4장으로 균등 분할하는 정적 웹 도구입니다.
+2~20장 이미지 분할 웹사이트. 슬라이더와 숫자 직접 입력이 연동됩니다.
 
-## 기능
+## GitHub Pages 설치
 
-- 3분할 / 4분할
-- 모든 조각 동일 픽셀 크기
-- X 업로드 순서 미리보기
-- PNG / JPG / WEBP 출력
-- 개별 다운로드
-- ZIP 전체 다운로드
-- 이미지 서버 업로드 없음 (브라우저에서만 처리)
+압축을 해제하고 `index.html`을 기존 저장소 루트의 `index.html`과 교체하세요. 추가 설치가 필요하지 않습니다.
 
-## GitHub Pages 배포
-
-1. 새 GitHub 저장소를 만듭니다.
-2. `index.html`을 저장소 최상단에 업로드합니다.
-3. GitHub 저장소의 `Settings` → `Pages`로 이동합니다.
-4. `Build and deployment`에서 `Deploy from a branch`를 선택합니다.
-5. Branch를 `main`, 폴더를 `/(root)`로 지정하고 저장합니다.
-6. 잠시 후 발급된 GitHub Pages 주소로 접속하면 됩니다.
-
-## 참고
-
-ZIP 다운로드에 JSZip CDN을 사용하므로 ZIP 기능에는 인터넷 연결이 필요합니다.
-이미지 분할 및 개별 다운로드 자체는 브라우저에서 처리됩니다.
+이미지 처리와 ZIP 생성은 모두 로컬 브라우저에서 이루어집니다. PNG/JPG/WebP 지원. X에서 여러 장의 이미지가 실제로 표시되는 방식은 X의 현재 UI에 따라 달라질 수 있습니다.
