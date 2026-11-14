@@ -1,12 +1,412 @@
 <!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#0c1118"><title>X Image Splitter — Studio</title><style>
 :root{color-scheme:dark;--bg:#0c1118;--surface:#151c25;--surface2:#1b2530;--border:#2a3543;--text:#f1f5fa;--muted:#91a0b0;--accent:#8db8d8}*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 50% -15%,#1b3549 0%,transparent 50%),var(--bg);font:15px/1.65 Inter,Pretendard,'Noto Sans KR',system-ui,sans-serif;color:var(--text)}.wrap{max-width:1020px;margin:auto;padding:46px 22px 76px}.top{display:flex;align-items:center;justify-content:space-between;margin-bottom:60px}.brand{font-size:14px;letter-spacing:.12em;font-weight:750}.brand i{display:inline-block;background:#8db8d8;width:11px;height:11px;border-radius:3px;transform:rotate(45deg);margin-right:11px}.tag{border:1px solid #344658;color:#9bb5c9;border-radius:50px;padding:4px 13px;font-size:11px;letter-spacing:.07em}.hero{margin-bottom:32px}.eyebrow{font-size:11px;letter-spacing:.23em;color:var(--accent);font-weight:800}.hero h1{font-size:clamp(34px,5vw,56px);line-height:1.16;letter-spacing:-.055em;margin:12px 0 14px;font-weight:780}.hero h1 em{font-style:normal;color:#8db8d8}.hero p{margin:0;color:var(--muted);font-size:14px}.panel{background:rgba(21,28,37,.94);border:1px solid var(--border);border-radius:20px;padding:26px;margin-top:18px;box-shadow:0 16px 45px #0002}.heading{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:19px}.heading strong{font-size:15px}.step{font-size:11px;color:#7891a5;letter-spacing:.15em}.drop{position:relative;display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center;min-height:220px;border:1.5px dashed #40556a;border-radius:14px;cursor:pointer;transition:.2s;background:linear-gradient(130deg,#1a2733aa,#141d27)}.drop:hover,.drop.over{background:#1d3040;border-color:#9ac8e5}.drop input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%}.upload-icon{display:grid;place-items:center;width:50px;height:50px;border-radius:15px;border:1px solid #40566b;background:#263a4b;margin-bottom:15px}.upload-icon svg{width:23px;height:23px;stroke:#b4d7ef;fill:none;stroke-width:1.6}.drop b{font-size:16px}.drop span{color:var(--muted);font-size:12px;margin-top:5px}.fileinfo{display:none;margin-top:13px;font-size:12px;color:#b8cfe1;overflow-wrap:anywhere}.config{display:grid;grid-template-columns:minmax(0,1fr) 210px;gap:30px;align-items:start}.fieldlabel{font-size:12px;color:#aebdcc;font-weight:650;display:block;margin-bottom:15px}.slide-row{display:flex;align-items:center;gap:18px}.rangebox{flex:1;min-width:0}.range{width:100%;accent-color:#8db8d8;cursor:pointer;height:5px}.ticks{display:flex;justify-content:space-between;color:#71889a;font-size:11px;margin-top:6px}.numwrap{display:flex;align-items:center;gap:9px}.numwrap input{width:66px;text-align:center;background:#101923;border:1px solid #425467;color:white;border-radius:10px;padding:10px 4px;font-size:18px;font-weight:750;outline:none}.numwrap input:focus{border-color:#9ec6e1}.numwrap span{color:var(--muted);font-size:12px}.format{width:100%;padding:12px;background:#101923;color:var(--text);border:1px solid #3a4a5c;border-radius:10px;font:inherit;outline:none}.actionrow{display:flex;gap:11px;margin-top:26px;flex-wrap:wrap}button{font:inherit;cursor:pointer;border-radius:11px;padding:12px 20px;font-weight:700;transition:.15s}button.primary{background:#c4dceb;color:#102c46;border:1px solid #c4dceb}button.primary:hover{background:white}button.secondary{background:#1e3040;color:#dceaf5;border:1px solid #395167}button.secondary:hover{background:#2c4255}button:disabled{opacity:.4;cursor:not-allowed}.status{color:#9db3c5;font-size:12px;margin-top:15px;min-height:20px}.result-head{display:flex;align-items:center;justify-content:space-between;gap:15px}.result-head small{color:var(--muted)}.preview{display:flex;gap:12px;overflow-x:auto;padding:20px 2px 8px;min-height:150px}.empty{margin:auto;color:#657a8c;text-align:center;font-size:13px}.tile{flex:none;width:130px}.tile .pic{height:185px;background:#0c141c;border:1px solid #34485a;border-radius:10px;display:flex;align-items:center;justify-content:center;overflow:hidden}.tile img{height:100%;max-width:100%;object-fit:contain}.tile .below{display:flex;justify-content:space-between;align-items:center;padding:9px 2px;font-size:11px;color:#a7b8c6}.tile a{color:#a9d2ee;text-decoration:none;font-weight:700}.tile a:hover{text-decoration:underline}.foot{display:flex;justify-content:space-between;gap:20px;color:#61788b;font-size:11px;margin-top:28px;flex-wrap:wrap}@media(max-width:650px){.wrap{padding:25px 15px 45px}.top{margin-bottom:42px}.panel{padding:18px}.config{grid-template-columns:1fr;gap:22px}.slide-row{gap:9px}.numwrap input{width:58px}.drop{min-height:200px}.hero h1{font-size:38px}.tag{display:none}}
-</style></head><body><main class="wrap"><div class="top"><div class="brand"><i></i> ORCA / TOOLS</div><div class="tag">IMAGE UTILITY · 02—20</div></div><section class="hero"><div class="eyebrow">SEAMLESS IMAGE SERIES</div><h1>One image.<br><em>Many moments.</em></h1><p>한 장의 이미지를 여러 조각으로. X에 올릴 연속 이미지를 간편하게 준비하세요.</p></section><section class="panel"><div class="heading"><strong>이미지 업로드</strong><span class="step">01 / SOURCE</span></div><label class="drop" id="drop"><input id="file" type="file" accept="image/*"><div class="upload-icon"><svg viewBox="0 0 24 24"><path d="M12 16V3m0 0L7 8m5-5 5 5M4 16v4h16v-4"/></svg></div><b>이미지를 선택하거나 여기에 놓으세요</b><span>PNG · JPG · WebP 등 이미지 파일 지원</span></label><div class="fileinfo" id="fileinfo"></div></section><section class="panel"><div class="heading"><strong>분할 설정</strong><span class="step">02 / OPTIONS</span></div><div class="config"><div><label class="fieldlabel" for="count">분할 개수</label><div class="slide-row"><div class="rangebox"><input class="range" id="count" type="range" min="2" max="20" step="1" value="3"><div class="ticks"><span>2</span><span>10</span><span>20</span></div></div><div class="numwrap"><input id="number" type="number" min="2" max="20" value="3" inputmode="numeric"><span>장</span></div></div></div><div><label class="fieldlabel" for="format">저장 형식</label><select class="format" id="format"><option value="image/png">PNG · 고화질</option><option value="image/jpeg">JPG · 가벼운 용량</option><option value="image/webp">WebP · 효율적 압축</option></select></div></div><div class="actionrow"><button class="primary" id="split">이미지 분할하기 ↗</button><button class="secondary" id="download" disabled>전체 ZIP 다운로드 ↓</button></div><div class="status" id="status" role="status">이미지를 선택하면 시작할 수 있어요.</div></section><section class="panel"><div class="heading"><strong>분할 결과</strong><span class="step">03 / PREVIEW</span></div><div class="result-head"><small>왼쪽부터 순서대로 저장됩니다.</small><small id="resultcount">0 IMAGES</small></div><div class="preview" id="preview"><div class="empty">분할한 이미지가 여기에 표시됩니다.</div></div></section><footer class="foot"><span>LOCAL PROCESSING · 이미지는 서버에 업로드되지 않습니다.</span><span>Designed in deep ocean blue · #102C46</span></footer></main><script>
+.seam-panel{border:1px solid #344b5e;border-radius:14px;background:#111e2a;padding:20px;margin-top:23px}.seam-top{display:flex;justify-content:space-between;align-items:center;gap:16px}.seam-top strong{font-size:14px}.seam-top p{margin:5px 0 0;font-size:12px;color:#90a7ba}.toggle{display:flex;gap:9px;align-items:center;color:#bfd2e0;font-size:12px}.toggle input{accent-color:#8db8d8;width:17px;height:17px}.seam-controls{margin-top:17px;display:grid;gap:13px}.crop-row{display:flex;gap:11px;align-items:center;flex-wrap:wrap;font-size:12px;color:#b9cbd9}.crop-row input{background:#0d1721;border:1px solid #405569;border-radius:9px;color:#f2f7fc;padding:9px;width:80px;font-size:15px}.crop-row .format{width:auto;min-width:220px;padding:9px}.crop-row button{padding:9px 12px;font-size:12px}.crop-hint{font-size:12px;color:#8caec6}.seam-panel:has(#cropEnabled:not(:checked)) .seam-controls{opacity:.4;pointer-events:none}@media(max-width:650px){.seam-panel{padding:15px}.seam-top{align-items:start}} .panorama-tools{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:20px}.panorama-tools strong{font-size:13px}.panorama-tools span{color:#849eb1;font-size:11px;flex:1}.panorama-tools label{display:flex;align-items:center;gap:8px;font-size:12px;color:#aec6d8}.panorama-tools input{width:115px;accent-color:#8db8d8}.panorama-tools output{min-width:42px}.panorama-scroll{overflow-x:auto;background:#0b141d;border:1px solid #334759;border-radius:12px;padding:12px;margin-top:12px;min-height:100px}.panorama-scroll canvas{display:block;width:100%;height:auto;max-width:none}.preview{margin-top:10px}.tile .pic{align-items:stretch}.tile img{height:100%;width:100%;max-width:none;object-fit:cover;object-position:center}.tile .pic{position:relative}.tile .pic:after{content:'개별 조각 · 확대 표시';position:absolute;bottom:0;left:0;right:0;text-align:center;background:#07121cbb;color:#b7cfe0;font-size:9px;padding:4px}.panorama-scroll:empty:after{content:'분할 후 전체 미리보기가 표시됩니다';color:#657a8c;font-size:12px} .mode-switch{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:17px 0 12px}.mode-choice{cursor:pointer;display:flex;gap:10px;align-items:center;padding:14px;border:1px solid #395165;border-radius:11px;background:#0b1925}.mode-choice:has(input:checked){background:#19344b;border-color:#83b8d9}.mode-choice input{accent-color:#91c6e8}.mode-choice span{display:flex;flex-direction:column;gap:4px}.mode-choice b{font-size:13px}.mode-choice small{font-size:11px;color:#91aec3}.panorama-scroll{padding:12px}.panorama-scroll canvas{image-rendering:auto}@media(max-width:550px){.mode-switch{grid-template-columns:1fr}} .custom-panel{border:1px solid #344b5e;border-radius:14px;background:#111e2a;padding:20px;margin-top:18px}.custom-panel [hidden]{display:none!important}.width-bar{display:flex;gap:3px;height:65px;margin:15px 0 18px}.width-segment{display:flex;align-items:center;justify-content:center;min-width:0;background:#1a425d;color:#d2e6f5;font-size:11px;cursor:pointer;border:1px solid #345c78;border-radius:4px;overflow:hidden}.width-segment.active{background:#3479a5;border-color:#a9dafa}.custom-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:14px 0}.custom-row label{display:flex;align-items:center;gap:9px;color:#b6cadb;font-size:12px}.custom-row input[type=range]{width:180px;accent-color:#88c3e7}.custom-row input[type=number],.custom-row select{border:1px solid #45637a;border-radius:8px;background:#0b1925;color:#edf5fb;padding:9px;width:80px}.custom-row select{width:100px}.custom-panel button{padding:9px 13px;font-size:12px}.custom-panel .mode-switch{margin-top:12px}@media(max-width:550px){.custom-panel{padding:15px}} .live-preview{position:relative;width:100%;line-height:0}.live-preview canvas{width:100%;height:auto}.cut-overlay{position:absolute;inset:0;pointer-events:none}.cut-label{position:absolute;top:7px;transform:translateX(-50%);background:#071523df;border:1px solid #a5d5f0;color:#fff;border-radius:6px;padding:6px 7px;font:700 11px system-ui;pointer-events:auto;cursor:pointer;line-height:1.2;white-space:nowrap}.cut-label.active{background:#2d7ead}.cut-handle{position:absolute;top:0;bottom:0;width:14px;transform:translateX(-50%);cursor:ew-resize;pointer-events:auto;touch-action:none;display:flex;justify-content:center}.cut-handle:after{content:'';width:2px;background:#9bdafa;box-shadow:0 0 3px #001b2c}.cut-handle:hover:after,.cut-handle.dragging:after{width:4px;background:#fff}.cut-overlay .cut-label{z-index:2}.custom-panel .width-bar{display:none}.panorama-scroll{overflow-x:auto}.panorama-scroll canvas{display:block}.cut-label:focus-visible,.cut-handle:focus-visible{outline:2px solid #fff} .floating-remote{position:fixed;right:22px;bottom:22px;z-index:1000;width:min(330px,calc(100vw - 28px));border:1px solid #6c9abc;border-radius:16px;background:#101f2ef5;color:#e5f3fc;box-shadow:0 15px 55px #0009;backdrop-filter:blur(15px);overflow:hidden}.floating-remote[hidden],.remote-fab[hidden]{display:none!important}.remote-head{display:flex;align-items:center;justify-content:space-between;background:#1a3b54;padding:11px 15px}.remote-head strong{font-size:13px}.remote-head button{background:transparent;border:0;color:#d3e9f8;font-size:22px;cursor:pointer;padding:0 4px}.remote-inner{padding:15px;display:grid;gap:12px}.remote-field{display:grid;gap:6px}.remote-field>label{color:#b0c7d8;font-size:11px}.remote-field select,.remote-field input[type=number]{background:#0b1824;color:#e8f4fc;border:1px solid #496c84;border-radius:8px;padding:8px;font-size:13px}.remote-width{display:flex;align-items:center;gap:8px}.remote-width input[type=range]{min-width:0;flex:1;accent-color:#89c6ec}.remote-width input[type=number]{width:68px}.remote-width span{font-size:12px}.remote-actions{display:flex;gap:8px}.remote-actions button,.remote-fab{background:#23465f;color:#eaf6ff;border:1px solid #5d87a4;border-radius:9px;padding:9px 11px;cursor:pointer;font-size:12px}.remote-actions button{flex:1}.remote-fab{position:fixed;right:22px;bottom:22px;z-index:1000;box-shadow:0 10px 35px #0008}.remote-head{cursor:grab;touch-action:none}@media(max-width:550px){.floating-remote{right:10px;bottom:10px;width:min(310px,calc(100vw - 20px))}.remote-inner{padding:11px;gap:8px}}</style></head><body><main class="wrap"><div class="top"><div class="brand"><i></i> ORCA / TOOLS</div><div class="tag">IMAGE UTILITY · 02—20</div></div><section class="hero"><div class="eyebrow">SEAMLESS IMAGE SERIES</div><h1>One image.<br><em>Many moments.</em></h1></section><section class="panel"><div class="heading"><strong>이미지 업로드</strong><span class="step">01 / SOURCE</span></div><label class="drop" id="drop"><input id="file" type="file" accept="image/*"><div class="upload-icon"><svg viewBox="0 0 24 24"><path d="M12 16V3m0 0L7 8m5-5 5 5M4 16v4h16v-4"/></svg></div><b>이미지를 선택하거나 여기에 놓으세요</b><span>PNG · JPG · WebP 등 이미지 파일 지원</span></label><div class="fileinfo" id="fileinfo"></div></section><section class="panel"><div class="heading"><strong>분할 설정</strong><span class="step">02 / OPTIONS</span></div><div class="config"><div><label class="fieldlabel" for="count">분할 개수</label><div class="slide-row"><div class="rangebox"><input class="range" id="count" type="range" min="2" max="20" step="1" value="3"><div class="ticks"><span>2</span><span>10</span><span>20</span></div></div><div class="numwrap"><input id="number" type="number" min="2" max="20" value="3" inputmode="numeric"><span>장</span></div></div></div><div><label class="fieldlabel" for="format">저장 형식</label><select class="format" id="format"><option value="image/png">PNG · 고화질</option><option value="image/jpeg">JPG · 가벼운 용량</option><option value="image/webp">WebP · 효율적 압축</option></select></div></div><div class="custom-panel"><div class="seam-top"><div><strong>조각 폭 설정</strong><p>특정 조각만 넓히거나 좁힐 수 있어요.</p></div></div>
+<div class="mode-switch" role="radiogroup" aria-label="폭 설정"><label class="mode-choice"><input type="radio" name="widthMode" value="equal" checked><span><b>균등 분할</b><small>모든 조각 동일한 폭</small></span></label><label class="mode-choice"><input type="radio" name="widthMode" value="custom"><span><b>커스텀 분할</b><small>원하는 조각 폭 조절</small></span></label></div>
+<div id="customControls" hidden><div class="custom-row"><label>조절할 조각 <select id="targetBlock"></select></label><label>폭 <input type="range" id="blockWidth" min="2" max="90" step=".5" value="25"></label><input type="number" id="blockPercent" min="2" max="90" step=".5" value="25" aria-label="조각 폭 퍼센트"><span>%</span></div>
+<div class="mode-switch" role="radiogroup" aria-label="조절 방식"><label class="mode-choice"><input type="radio" name="adjustMode" value="neighbor"><span><b>인접 조각만 조절</b><small>선택한 조각과 오른쪽 조각의 폭 변경 (마지막 조각은 왼쪽)</small></span></label><label class="mode-choice"><input type="radio" name="adjustMode" value="rest" checked><span><b>나머지 균등 분배</b><small>선택한 조각만 고정하고 나머지는 같은 폭으로 재계산</small></span></label></div>
+<button class="secondary" id="resetWidths" type="button">폭 초기화 ↺</button><div class="crop-hint" id="widthHint">조각을 선택하고 폭을 조절해 보세요.</div></div></div><div class="seam-panel"><div class="seam-top"><div><strong>분할 방식</strong><p>이미지 사이 간격을 고려할지 선택하세요.</p></div></div><div class="mode-switch" role="radiogroup" aria-label="분할 방식"><label class="mode-choice"><input type="radio" name="seamMode" value="gap" checked><span><b>여백 있음</b><small>사이의 틈만큼 원본을 미리 잘라냄</small></span></label><label class="mode-choice"><input type="radio" name="seamMode" value="plain"><span><b>여백 없음</b><small>원본 크기 그대로 균등 분할</small></span></label></div><div class="crop-hint" id="cropHint">여백 있음 모드는 이미지 크기에 맞춰 크롭값을 자동으로 계산합니다.</div></div><div class="actionrow"><button class="primary" id="split">현재 설정으로 파일 생성 ↗</button><button class="secondary" id="download" disabled>전체 ZIP 다운로드 ↓</button></div><div class="status" id="status" role="status">이미지를 선택하면 시작할 수 있어요.</div></section><section class="panel"><div class="heading"><strong>분할 결과</strong><span class="step">03 / PREVIEW</span></div><div class="result-head"><small>왼쪽부터 순서대로 저장됩니다.</small><small id="resultcount">0 IMAGES</small></div><div class="panorama-tools"><strong>간격 미리보기</strong><span>이미지 위 번호를 눌러 조각 선택 · 커스텀 모드에서 경계선 드래그</span><label>확대 <input type="range" id="zoom" min="100" max="400" value="100" step="25"><output id="zoomVal">100%</output></label></div><div class="panorama-scroll" id="previewScroll"><div class="live-preview" id="livePreview"><canvas id="panorama" aria-label="분할 미리보기"></canvas><div class="cut-overlay" id="cutOverlay"></div></div></div><div class="preview" id="preview"><div class="empty">분할한 이미지가 여기에 표시됩니다.</div></div></section><footer class="foot"><span>LOCAL PROCESSING · 이미지는 서버에 업로드되지 않습니다.</span><span>Designed in deep ocean blue · #102C46</span></footer></main><aside class="floating-remote" id="floatingRemote" hidden aria-label="분할 조절 리모컨"><div class="remote-head"><strong>✥ 분할 리모컨</strong><button type="button" id="remoteClose" title="닫기">×</button></div><div class="remote-inner"><div class="remote-field"><label for="remoteBlock">조각 선택</label><select id="remoteBlock"></select></div><div class="remote-field"><label for="remoteWidth">선택 조각 폭</label><div class="remote-width"><input type="range" id="remoteWidth" min="1" max="99" step=".5"><input type="number" id="remotePercent" min="1" max="99" step=".5"><span>%</span></div></div><div class="remote-field"><label for="remoteAdjust">조절 방식</label><select id="remoteAdjust"><option value="rest">나머지 균등 분배</option><option value="neighbor">인접 조각만 조절</option></select></div><div class="remote-actions"><button type="button" id="remoteReset">폭 초기화</button><button type="button" id="remoteGo">미리보기로 이동 ↓</button></div></div></aside><button type="button" class="remote-fab" id="remoteFab" hidden>⚙ 분할 리모컨</button><script>
+// X 타임라인 미디어 캐러셀 높이 로직. 근거: investigation/x-layout-2026-10-09/README.md
+// (x-media-carousel 모듈의 U memo 이식, compact 아님). 동작을 바꾸지 않는다.
+
+const GAP = 4;
+const CARD_BORDER = 1;
+const CARD_RADIUS = 8;
+const ITEM_CAP = 0.8;
+const COL_MAX = 600;
+// X 의 왼쪽 들여쓰기는 프로필 사진 자리라 이 앱은 좌우 대칭으로 둔다(합은 X 와 같다)
+const BLEED = { marginStart: -38, marginEnd: -38, padStart: 40, padEnd: 40, padBlock: 2 };
+// 화면상 이음새 = 카드 사이 간격 + 양쪽 카드 테두리
+const SEAM = GAP + 2 * CARD_BORDER;
+const MAX_RATIO = 1.24446;
+
+const MAX = { ratio: MAX_RATIO, offset: 0 };
+const minR = (e, t) => (e.ratio <= t.ratio ? e : t);
+const sum = (e) => e.reduce((a, b) => a + b, 0);
+const capped = (ratio, a) => (a == null ? ratio : Math.min(ratio * a, ITEM_CAP));
+
+function fitAll(t) {
+  if (t.length < 2 || t.some((e) => e <= 0)) return null;
+  const off = GAP * (t.length - 1);
+  let rest = t, fixed = 0;
+  for (let k = 0; k < t.length; k++) {
+    const s = sum(rest); if (s <= 0) break;
+    const q = (1 - ITEM_CAP * fixed) / s; if (q <= 0) break;
+    const keep = rest.filter((e) => q * e <= ITEM_CAP);
+    if (keep.length === rest.length) return { ratio: q, offset: -off / s };
+    fixed += rest.length - keep.length; rest = keep;
+  }
+  return null;
+}
+function secondVisible(ratio, t) {
+  const r = capped(ratio, t[0]), i = capped(ratio, t[1]);
+  return i <= 0 ? 0 : Math.min(Math.max(1 - r, 0), i) / i;
+}
+function firstTwo(e) {
+  const t = e[0] ?? 1, r = e[1] ?? 1; if (t <= 0 || r <= 0) return null;
+  const out = [], add = (num, den) => { if (den <= 0) return; const q = num / den; if (q > 0) out.push({ ratio: q, offset: -GAP / den }); };
+  const o = t + 0.67 * r, l = o > 0 ? 1 / o : 0;
+  if (l > 0 && l * t <= ITEM_CAP && l * r <= ITEM_CAP) add(1, o);
+  { const d = 0.67 * r, q = d > 0 ? 0.2 / d : 0; if (q > 0 && q * t >= ITEM_CAP && q * r <= ITEM_CAP) add(0.2, d); }
+  { const q = t > 0 ? 0.464 / t : 0; if (q > 0 && q * r >= ITEM_CAP && q * t <= ITEM_CAP) add(0.464, t); }
+  let best = null; out.forEach((c) => { best = best == null ? c : minR(best, c); }); return best;
+}
+
+/** asp = 조각 가로/세로 비율 배열 → {ratio, offset, items}. 카드 폭 = items[i]·h. */
+function carousel(asp) {
+  const base = minR({ ratio: 0.68, offset: 0 }, MAX), fit = fitAll(asp);
+  const e = fit == null || fit.ratio < base.ratio ? base : minR(fit, MAX);
+  let a;
+  if (asp.length < 2) a = e;
+  else if (asp.length === 2) { const r = fitAll(asp); a = r == null || r.ratio >= e.ratio || 0.33 > secondVisible(e.ratio, asp) ? e : r; }
+  else if (1 - secondVisible(e.ratio, asp) >= 0.33) a = e;
+  else {
+    const c = firstTwo(asp);
+    if (c == null) a = e;
+    else {
+      let x = minR(c, MAX);
+      const o = Math.min(...asp.slice(0, 2).map((q) => ITEM_CAP / q));
+      x = minR(x, o >= e.ratio ? { ratio: o, offset: 0 } : e);
+      a = x.ratio > e.ratio ? x : e;
+    }
+  }
+  return { ratio: a.ratio, offset: a.offset, items: asp.map((q) => capped(a.ratio, q) / a.ratio) };
+}
+
+const columnWidth = (vp) => Math.min(vp, COL_MAX);
+const refWidth = (vp) => columnWidth(vp) - 82;
+
+function layout(asp, vp) {
+  const F = columnWidth(vp), R = F - 82;
+  const { ratio, offset, items } = carousel(asp);
+  // X 는 padding-bottom 을 % 소수 넷째 자리, offset 을 px 소수 셋째 자리로 반올림해 쓴다
+  const h = R * Math.round(ratio * 1e6) / 1e6 + Math.round(offset * 1e3) / 1e3;
+  const overCap = asp.some((a) => ratio * a > ITEM_CAP);
+  return { F, R, h, widths: items.map((i) => i * h), ratio, offset, overCap };
+}
+
+// 분할 기하. 모든 위치는 정수 원본 px. 정의: docs/canonical/CONTEXT.md §기호와 분할
+
+/** 분할선마다 왼쪽 조각에서 ⌊c/2⌋, 오른쪽 조각에서 ⌈c/2⌉ 를 잘라 낸다. */
+function pieces(W, c, lines) {
+  const lo = Math.floor(c / 2), hi = c - lo;
+  const out = [];
+  for (let i = 0; i <= lines.length; i++) {
+    out.push({ a: i === 0 ? 0 : lines[i - 1] + hi, b: i === lines.length ? W : lines[i] - lo });
+  }
+  return out;
+}
+
+function equalLines(W, n, c) {
+  const hi = c - Math.floor(c / 2);
+  return Array.from({ length: n - 1 }, (_, i) => Math.round(((i + 1) * (W + c)) / n) - hi);
+}
+
+/** 조각 수 범위. 상한은 X 가 한 게시물에 받는 이미지 수다. */
+const N_MIN = 2;
+const N_MAX = 20;
+
+/** 조각 최소 폭 m. */
+const minWidth = (W) => Math.max(8, Math.round(0.03 * W));
+
+/** 분할선 i 가 가질 수 있는 범위. 가장자리 조각은 바깥을 자르지 않으므로 ⌊c/2⌋·⌈c/2⌉ 가 비대칭이다. */
+function lineRange(W, c, lines, i) {
+  const m = minWidth(W), last = lines.length - 1;
+  return {
+    min: i === 0 ? Math.floor(c / 2) + m : lines[i - 1] + c + m,
+    max: i === last ? W - (c - Math.floor(c / 2)) - m : lines[i + 1] - c - m,
+  };
+}
+
+function clampLine(W, c, lines, i, x) {
+  const { min, max } = lineRange(W, c, lines, i);
+  return Math.min(Math.max(Math.round(x), min), max);
+}
+
+/** 크롭 상한. 뒤 항이 음수면 그 조각 수는 만들 수 없다. */
+const cropMax = (W, H, n) => Math.min(Math.round(0.05 * H), Math.floor((W - n * minWidth(W)) / (n - 1)));
+
+const nFeasible = (W, n) => W >= n * minWidth(W);
+
+/** 간격 규칙을 어긴 분할선만 밀어 낸다(왼→오 한 번, 오→왼 한 번). c ≤ cropMax 이면 결과는 항상 규칙을 지킨다. */
+function clampLines(W, c, lines) {
+  const m = minWidth(W), lo = Math.floor(c / 2), hi = c - lo, k = lines.length;
+  const out = lines.slice();
+  for (let i = 0; i < k; i++) out[i] = Math.max(out[i], i === 0 ? lo + m : out[i - 1] + c + m);
+  for (let i = k - 1; i >= 0; i--) out[i] = Math.min(out[i], i === k - 1 ? W - hi - m : out[i + 1] - c - m);
+  return out;
+}
+
+/** 기준 높이에서 정한 크롭을 새 높이의 비율로 옮기고 상한 안으로 자른다. */
+const scaleCrop = (c, fromH, toH, max) => Math.min(Math.round((c * toH) / fromH), max);
+
+const cropFromPercent =(H, pct) => Math.round((pct * H) / 100);
+const percentFromCrop = (H, c) => (c / H) * 100;
+
+// 상태 → X 타임라인 재현 좌표. 정의: docs/canonical/CONTEXT.md §X 타임라인 재현·§이음새 오차와 권장 크롭
+// 좌표는 트랙 좌표(첫 카드 왼쪽 테두리 바깥 = 0)이고 단위는 CSS px 이다.
+
+
+function scene(state, vp) {
+  const { W, H, c, lines } = state;
+  // 미리보기 이미지는 원본 전체다. 작업 px → 원본 px 배율 rx, ry 로 자른 영역의 위치·원본 크기를 작업 좌표에 옮긴다.
+  // trim 이 없으면 작업 크기 전체(rx = ry = 1).
+  const T = state.trim ?? { x: 0, y: 0, w: W, h: H };
+  const rx = T.w / W, ry = T.h / H;
+  const W0 = state.trim ? state.img.W : W, H0 = state.trim ? state.img.H : H;
+  const ox = T.x / rx, oy = T.y / ry;
+  const ps = pieces(W, c, lines);
+  const n = ps.length;
+  const L = layout(ps.map((p) => (p.b - p.a) / H), vp);
+  const h = L.h, innerH = h - 2 * CARD_BORDER;
+  const lo = Math.floor(c / 2), hi = c - lo;
+
+  const cards = [];
+  let left = 0;
+  for (let i = 0; i < n; i++) {
+    const width = L.widths[i], innerW = width - 2 * CARD_BORDER, w = ps[i].b - ps[i].a;
+    const s = Math.max(innerW / w, innerH / H);
+    const overflow = (w * s - innerW) / 2;
+    cards.push({
+      left, width, height: h, innerW, innerH, scale: s, overflow,
+      bgW: (W0 / rx) * s, bgH: (H0 / ry) * s, bgX: -((ps[i].a + ox) * s + overflow), bgY: (innerH - H * s) / 2 - oy * s,
+    });
+    left += width + GAP;
+  }
+
+  const seams = [];
+  for (let i = 0; i < n - 1; i++) {
+    const A = cards[i], B = cards[i + 1];
+    const error = SEAM - A.overflow - B.overflow - lo * A.scale - hi * B.scale;
+    const lw = A.overflow + lo * A.scale, rw = hi * B.scale + B.overflow;
+    const center = A.left + A.width + GAP / 2;
+    // 띠 전체의 가로 중심을 이음새 중심에 맞춘다(띠가 간격보다 좁든 넓든 양쪽에 같게 넘친다)
+    const l0 = center - (lw + rw) / 2;
+    // 잘려 나가는 원본 띠의 시작 원본 x: 왼쪽은 조각 i 의 보이는 끝, 오른쪽은 분할선 위치
+    const xl = ps[i].b - A.overflow / A.scale;
+    const xr = ps[i + 1].a - hi;
+    seams.push({
+      center,
+      error,
+      ghost: {
+        left: l0,
+        parts: [
+          { left: l0, width: lw, bgW: A.bgW, bgH: A.bgH, bgX: -(xl + ox) * A.scale, bgY: A.bgY },
+          { left: l0 + lw, width: rw, bgW: B.bgW, bgH: B.bgH, bgX: -(xr + ox) * B.scale, bgY: B.bgY },
+        ],
+      },
+    });
+  }
+
+  const last = cards[n - 1];
+  return {
+    F: L.F, R: L.R, height: h, trackHeight: h + 2 * BLEED.padBlock,
+    trackWidth: last.left + last.width, overCap: L.overCap, cards, seams,
+  };
+}
+
+/** scene().seams[i].error 와 같은 값(vp 하나). */
+function seamErrors(W, H, c, lines, vp) {
+  const out = [];
+  seamSweep(W, H, c, lines, vp, vp, (e) => out.push(e));
+  return out;
+}
+
+/** vp ∈ [vpMin, vpMax] 전체에서 최악 |이음새 오차|. recommend 의 전수 탐색용. */
+function worstSeamError(W, H, c, lines, vpMin, vpMax) {
+  let worst = 0;
+  seamSweep(W, H, c, lines, vpMin, vpMax, (e) => { const a = Math.abs(e); if (a > worst) worst = a; });
+  return worst;
+}
+
+// carousel() 은 vp 와 무관하므로 한 번만 계산하고, vp 마다 R 에 따른 높이·폭만 다시 계산한다.
+// 식은 layout()·scene() 과 같아야 한다(tests/recommend.test.js 가 대조한다).
+function seamSweep(W, H, c, lines, vpMin, vpMax, emit) {
+  const ps = pieces(W, c, lines), n = ps.length;
+  const w = ps.map((p) => p.b - p.a);
+  const { ratio, offset, items } = carousel(w.map((x) => x / H));
+  const rr = Math.round(ratio * 1e6) / 1e6, ro = Math.round(offset * 1e3) / 1e3;
+  const lo = Math.floor(c / 2), hi = c - lo;
+  const s = new Array(n), ov = new Array(n);
+  for (let vp = vpMin; vp <= vpMax; vp++) {
+    const h = refWidth(vp) * rr + ro, innerH = h - 2 * CARD_BORDER;
+    for (let i = 0; i < n; i++) {
+      const innerW = items[i] * h - 2 * CARD_BORDER;
+      s[i] = Math.max(innerW / w[i], innerH / H);
+      ov[i] = (w[i] * s[i] - innerW) / 2;
+    }
+    for (let i = 0; i < n - 1; i++) emit(SEAM - ov[i] - ov[i + 1] - lo * s[i] - hi * s[i + 1]);
+  }
+}
+
+// 권장 크롭 전수 탐색. 정의: docs/canonical/CONTEXT.md §이음새 오차와 권장 크롭
+
+
+// 기준별 뷰포트 범위 [min, max]. 600 이상은 X 열 폭이 같아 데스크톱은 600 하나로 충분하다.
+const CROP_TARGETS = Object.freeze({
+  mobile: [360, 440],
+  desktop: [600, 600],
+  balance: [360, 600],
+});
+
+function recommendCrop(W, H, n, lines, target = 'balance') {
+  const [vpMin, vpMax] = CROP_TARGETS[target];
+  const cMax = cropMax(W, H, n);
+  if (cMax < 0) return { c: 0, worst: Infinity };
+  let best = { c: 0, worst: Infinity };
+  for (let c = 0; c <= cMax; c++) {
+    const ls = lines ? clampLines(W, c, lines) : equalLines(W, n, c);
+    const worst = worstSeamError(W, H, c, ls, vpMin, vpMax);
+    if (worst < best.worst) best = { c, worst };
+  }
+  return best;
+}
+
 const $=id=>document.getElementById(id),range=$('count'),number=$('number');let parts=[];
-range.oninput=()=>number.value=range.value;number.oninput=()=>{const n=Number(number.value);if(Number.isInteger(n)&&n>=2&&n<=20)range.value=n};number.onblur=()=>{const n=Math.max(2,Math.min(20,Number(number.value)||3));number.value=n;range.value=n};
-$('file').onchange=()=>{const f=$('file').files[0];if(f){$('fileinfo').style.display='block';$('fileinfo').textContent=`선택한 파일: ${f.name} · ${(f.size/1024/1024).toFixed(2)} MB`;}};
+range.oninput=()=>{number.value=range.value;resetWidthFractions()};number.oninput=()=>{const n=Number(number.value);if(Number.isInteger(n)&&n>=2&&n<=20)range.value=n};number.onblur=()=>{const n=Math.max(2,Math.min(20,Number(number.value)||3));number.value=n;range.value=n};
+$('file').onchange=()=>{const f=$('file').files[0];if(f){$('fileinfo').style.display='block';$('fileinfo').textContent=`선택한 파일: ${f.name} · ${(f.size/1024/1024).toFixed(2)} MB`;loadPreviewImage(f);}};
+$('zoom').oninput=()=>{const v=+$('zoom').value;$('zoomVal').textContent=v+'%';$('livePreview').style.width=v+'%'};
+let widthFractions=[],selectedBlock=0;
+const selectedWidthMode=()=>document.querySelector('input[name="widthMode"]:checked').value;
+const selectedAdjustMode=()=>document.querySelector('input[name="adjustMode"]:checked').value;
+function resetWidthFractions(){const n=+range.value;widthFractions=Array(n).fill(100/n);selectedBlock=Math.min(selectedBlock,n-1);renderWidthControls()}
+function renderWidthControls(){
+ const n=+range.value;const enabled=selectedWidthMode()==='custom';$('customControls').hidden=!enabled;
+ if(widthFractions.length!==n)widthFractions=Array(n).fill(100/n);
+ const select=$('targetBlock');select.replaceChildren();
+ widthFractions.forEach((w,i)=>{
+ const opt=document.createElement('option');opt.value=i;opt.textContent=`${i+1}번`;select.append(opt);
+
+ });
+ select.value=selectedBlock;
+ $('blockWidth').value=widthFractions[selectedBlock];$('blockPercent').value=+widthFractions[selectedBlock].toFixed(2);
+ $('widthHint').textContent=widthFractions.map((w,i)=>`${i+1}번 ${w.toFixed(1)}%`).join(' · ');schedulePreview();if(typeof syncRemote==='function')syncRemote();
+}
+function updateSelectedWidth(v){
+ const n=widthFractions.length,min=1,idx=selectedBlock,old=widthFractions[idx];
+ let target=Math.min(100-min*(n-1),Math.max(min,Number(v)||min));
+ if(selectedAdjustMode()==='rest'){
+  const each=(100-target)/(n-1);
+  widthFractions=widthFractions.map((w,i)=>i===idx?target:each)
+ }else{
+  const other=idx<n-1?idx+1:idx-1;
+  target=Math.min(old+widthFractions[other]-min,target);
+  widthFractions[other]=widthFractions[other]+old-target;widthFractions[idx]=target
+ }
+ renderWidthControls()
+}
+function customLines(W,n){
+ let sum=0;return widthFractions.slice(0,-1).map(w=>{sum+=w;return Math.round(W*sum/100)})
+}
+number.addEventListener('change',resetWidthFractions);
+document.querySelectorAll('input[name="widthMode"]').forEach(el=>el.addEventListener('change',renderWidthControls));
+document.querySelectorAll('input[name="adjustMode"]').forEach(el=>el.addEventListener('change',renderWidthControls));
+$('targetBlock').onchange=e=>{selectedBlock=+e.target.value;renderWidthControls()};
+$('blockWidth').oninput=e=>updateSelectedWidth(e.target.value);
+$('blockPercent').onchange=e=>updateSelectedWidth(e.target.value);
+$('resetWidths').onclick=resetWidthFractions;
+
+let previewImage=null,previewTimer=0,previewVersion=0,previewSegments=[],previewCrop=0,previewGap=0,dragIndex=-1;
+async function loadPreviewImage(file){
+ const version=++previewVersion;try{
+ const bitmap=await createImageBitmap(file);if(version!==previewVersion){bitmap.close();return}
+ previewImage?.close();previewImage=bitmap;schedulePreview();$('remoteFab').hidden=false;if(!remoteVisible)showRemote();
+ }catch(e){$('status').textContent='미리보기 이미지 오류: '+e.message}
+}
+function schedulePreview(){clearTimeout(previewTimer);previewTimer=setTimeout(drawLivePreview,45)}
+function getSegments(W,H,n){
+ const useGap=document.querySelector('input[name="seamMode"]:checked').value==='gap';
+ const custom=selectedWidthMode()==='custom',raw=custom?customLines(W,n):null;
+ const rec=useGap?recommendCrop(W,H,n,raw,'balance'):null;
+ const crop=useGap?rec.c:0;
+ const lines=custom?clampLines(W,crop,raw):equalLines(W,n,crop);
+ return {segments:pieces(W,crop,lines),crop,useGap};
+}
+function drawLivePreview(){
+ if(!previewImage)return;
+ const n=+range.value,img=previewImage;
+ if(img.width<n)return;
+ try{
+ const {segments,crop,useGap}=getSegments(img.width,img.height,n);
+ previewSegments=segments;previewCrop=crop;
+ const gap=Math.max(3,Math.round(img.width/180));previewGap=gap;
+ const pano=$('panorama');pano.width=segments.reduce((sum,p)=>sum+p.b-p.a,0)+gap*(n-1);pano.height=img.height;
+ const ctx=pano.getContext('2d');ctx.fillStyle='#172a39';ctx.fillRect(0,0,pano.width,pano.height);
+ const overlay=$('cutOverlay');overlay.replaceChildren();
+ let offset=0;
+ for(let i=0;i<n;i++){
+ const seg=segments[i],w=seg.b-seg.a;
+ ctx.drawImage(img,seg.a,0,w,img.height,offset,0,w,img.height);
+ const label=document.createElement('button');label.type='button';label.className='cut-label'+(selectedBlock===i&&selectedWidthMode()==='custom'?' active':'');
+ label.style.left=((offset+w/2)/pano.width*100)+'%';label.textContent=`${i+1} · ${((w/img.width)*100).toFixed(1)}%`;
+ label.title=`${i+1}번 조각 선택`;label.onclick=()=>{selectedBlock=i;renderWidthControls()};
+ overlay.append(label);
+ offset+=w;
+ if(i<n-1){
+ const handle=document.createElement('div');handle.className='cut-handle';handle.tabIndex=0;handle.setAttribute('role','slider');handle.setAttribute('aria-label',`${i+1}번과 ${i+2}번 사이 경계`);
+ handle.style.left=((offset+gap/2)/pano.width*100)+'%';
+ handle.title=selectedWidthMode()==='custom'?'드래그해서 경계 이동':'커스텀 분할을 선택하면 이동 가능';
+ handle.onpointerdown=e=>{if(selectedWidthMode()!=='custom')return;e.preventDefault();dragIndex=i;handle.setPointerCapture(e.pointerId);handle.classList.add('dragging')};
+ handle.onpointermove=e=>{if(dragIndex!==i)return;
+ const rect=$('livePreview').getBoundingClientRect();
+ const px=Math.max(0,Math.min(1,(e.clientX-rect.left)/rect.width));
+ const position=px*img.width;
+ const cum=widthFractions.slice(0,i+1).reduce((a,b)=>a+b,0);
+ const oldBoundary=cum*img.width/100;
+ const delta=(position-oldBoundary)*100/img.width;
+ const left=Math.max(1,widthFractions[i]+delta),right=Math.max(1,widthFractions[i+1]-delta);
+ const total=widthFractions[i]+widthFractions[i+1];
+ const newLeft=Math.min(total-1,Math.max(1,left));
+ widthFractions[i]=newLeft;widthFractions[i+1]=total-newLeft;selectedBlock=i;renderWidthControls();
+ };
+ handle.onpointerup=handle.onpointercancel=()=>{dragIndex=-1;handle.classList.remove('dragging')};
+ handle.onkeydown=e=>{if(selectedWidthMode()!=='custom'||!['ArrowLeft','ArrowRight'].includes(e.key))return;e.preventDefault();const d=e.key==='ArrowRight'?.5:-.5;const total=widthFractions[i]+widthFractions[i+1];const left=Math.min(total-1,Math.max(1,widthFractions[i]+d));widthFractions[i]=left;widthFractions[i+1]=total-left;selectedBlock=i;renderWidthControls()};
+ overlay.append(handle);
+ }
+ offset+=gap;
+ }
+ $('cropHint').textContent=useGap?`경계당 원본 ${crop}px 제거 · 미리보기 간격은 시각적 안내입니다.`:'원본 영역 제거 없이 분할 · 미리보기 간격만 표시합니다.';
+ }catch(e){$('status').textContent='미리보기 오류: '+e.message}
+}
+document.querySelectorAll('input[name="seamMode"]').forEach(el=>el.addEventListener('change',schedulePreview));
+resetWidthFractions();
 const drop=$('drop');for(const name of ['dragenter','dragover'])drop.addEventListener(name,e=>{e.preventDefault();drop.classList.add('over')});for(const name of ['dragleave','drop'])drop.addEventListener(name,e=>{e.preventDefault();drop.classList.remove('over')});drop.addEventListener('drop',e=>{const f=e.dataTransfer.files[0];if(!f||!f.type.startsWith('image/'))return;const dt=new DataTransfer();dt.items.add(f);$('file').files=dt.files;$('file').dispatchEvent(new Event('change'))});
 function ext(t){return t==='image/jpeg'?'jpg':t==='image/webp'?'webp':'png'}
-$('split').onclick=async()=>{const f=$('file').files[0];if(!f){$('status').textContent='먼저 이미지를 업로드해 주세요.';return}number.blur();const n=+range.value,t=$('format').value;for(const p of parts)URL.revokeObjectURL(p.url);parts=[];$('preview').replaceChildren();$('download').disabled=true;$('split').disabled=true;$('status').textContent='이미지를 분할하고 있어요…';let img;try{img=await createImageBitmap(f);if(img.width<n)throw Error('이미지 너비가 분할 개수보다 작습니다.');for(let i=0;i<n;i++){const l=Math.round(i*img.width/n),r=Math.round((i+1)*img.width/n),w=r-l,c=document.createElement('canvas');c.width=w;c.height=img.height;c.getContext('2d').drawImage(img,l,0,w,img.height,0,0,w,img.height);const blob=await new Promise((ok,fail)=>c.toBlob(b=>b?ok(b):fail(Error('이미지 저장에 실패했습니다.')),t,.94));const name=`slice_${String(i+1).padStart(2,'0')}.${ext(t)}`,url=URL.createObjectURL(blob);parts.push({blob,name,url});const tile=document.createElement('div');tile.className='tile';const pic=document.createElement('div');pic.className='pic';const im=document.createElement('img');im.src=url;im.alt=`${i+1}번 이미지`;pic.append(im);const below=document.createElement('div');below.className='below';const label=document.createElement('span');label.textContent=String(i+1).padStart(2,'0')+' / '+String(n).padStart(2,'0');const a=document.createElement('a');a.href=url;a.download=name;a.textContent='저장 ↓';below.append(label,a);tile.append(pic,below);$('preview').append(tile)}$('resultcount').textContent=n+' IMAGES';$('status').textContent=`완료! ${img.width} × ${img.height}px 원본을 ${n}장으로 분할했어요.`;$('download').disabled=false}catch(e){$('status').textContent='오류: '+e.message}finally{img?.close();$('split').disabled=false}};
+$('split').onclick=async()=>{const f=$('file').files[0];if(!f){$('status').textContent='먼저 이미지를 업로드해 주세요.';return}number.blur();const n=+range.value,t=$('format').value;for(const p of parts)URL.revokeObjectURL(p.url);parts=[];$('preview').replaceChildren();$('download').disabled=true;$('split').disabled=true;$('status').textContent='이미지를 분할하고 있어요…';let img;try{img=await createImageBitmap(f);if(img.width<n)throw Error('이미지 너비가 분할 개수보다 작습니다.');const {segments,crop}=getSegments(img.width,img.height,n);
+if(segments.some(seg=>seg.b<=seg.a))throw Error('너무 좁은 조각이 있습니다.');
+drawLivePreview();
+for(let i=0;i<n;i++){
+const l=segments[i].a,r=segments[i].b,w=r-l,c=document.createElement('canvas');c.width=w;c.height=img.height;c.getContext('2d').drawImage(img,l,0,w,img.height,0,0,w,img.height);const blob=await new Promise((ok,fail)=>c.toBlob(b=>b?ok(b):fail(Error('이미지 저장에 실패했습니다.')),t,.94));const name=`slice_${String(i+1).padStart(2,'0')}.${ext(t)}`,url=URL.createObjectURL(blob);parts.push({blob,name,url});const tile=document.createElement('div');tile.className='tile';const pic=document.createElement('div');pic.className='pic';const im=document.createElement('img');im.src=url;im.alt=`${i+1}번 이미지`;pic.append(im);const below=document.createElement('div');below.className='below';const label=document.createElement('span');label.textContent=String(i+1).padStart(2,'0')+' / '+String(n).padStart(2,'0');const a=document.createElement('a');a.href=url;a.download=name;a.textContent='저장 ↓';below.append(label,a);tile.append(pic,below);$('preview').append(tile)}$('resultcount').textContent=n+' IMAGES';$('status').textContent=`완료! ${img.width} × ${img.height}px 원본을 ${n}장으로 분할했어요. 경계당 크롭 ${crop}px.`;$('download').disabled=false}catch(e){$('status').textContent='오류: '+e.message}finally{img?.close();$('split').disabled=false}};
 const table=new Uint32Array(256);for(let i=0;i<256;i++){let c=i;for(let j=0;j<8;j++)c=c&1?0xedb88320^(c>>>1):c>>>1;table[i]=c>>>0}function crc(bytes){let c=0xffffffff;for(const b of bytes)c=table[(c^b)&255]^(c>>>8);return(c^0xffffffff)>>>0}function u16(v){return[v&255,(v>>>8)&255]}function u32(v){return[v&255,(v>>>8)&255,(v>>>16)&255,(v>>>24)&255]}
 $('download').onclick=async()=>{if(!parts.length)return;$('download').disabled=true;$('status').textContent='ZIP 파일을 준비하고 있어요…';try{let chunks=[],central=[],offset=0;for(const p of parts){const data=new Uint8Array(await p.blob.arrayBuffer()),name=new TextEncoder().encode(p.name),c=crc(data),local=new Uint8Array([80,75,3,4,...u16(20),...u16(0),...u16(0),...u16(0),...u16(0),...u32(c),...u32(data.length),...u32(data.length),...u16(name.length),...u16(0)]);chunks.push(local,name,data);const cd=new Uint8Array([80,75,1,2,...u16(20),...u16(20),...u16(0),...u16(0),...u16(0),...u16(0),...u32(c),...u32(data.length),...u32(data.length),...u16(name.length),...u16(0),...u16(0),...u16(0),...u16(0),...u32(0),...u32(offset)]);central.push(cd,name);offset+=local.length+name.length+data.length}const size=central.reduce((a,b)=>a+b.length,0),end=new Uint8Array([80,75,5,6,...u16(0),...u16(0),...u16(parts.length),...u16(parts.length),...u32(size),...u32(offset),...u16(0)]),blob=new Blob([...chunks,...central,end],{type:'application/zip'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=`x_split_${parts.length}_images.zip`;a.click();setTimeout(()=>URL.revokeObjectURL(url),60000);$('status').textContent='ZIP 다운로드가 준비됐어요.'}catch(e){$('status').textContent='ZIP 생성 오류: '+e.message}finally{$('download').disabled=false}};
+
+let remoteVisible=false;
+function syncRemote(){
+ const n=widthFractions.length;if(!n)return;
+ const el=$('remoteBlock');el.replaceChildren();
+ widthFractions.forEach((w,i)=>{const o=document.createElement('option');o.value=i;o.textContent=`${i+1}번 · ${w.toFixed(1)}%`;el.append(o)});
+ el.value=selectedBlock;
+ $('remoteWidth').value=widthFractions[selectedBlock];$('remotePercent').value=+widthFractions[selectedBlock].toFixed(2);
+ $('remoteAdjust').value=selectedAdjustMode();
+}
+function showRemote(){
+ if(selectedWidthMode()!=='custom'){
+  const radio=document.querySelector('input[name="widthMode"][value="custom"]');radio.checked=true;renderWidthControls();
+ }
+ syncRemote();$('floatingRemote').hidden=false;$('remoteFab').hidden=true;remoteVisible=true;
+}
+$('remoteFab').onclick=showRemote;
+$('remoteClose').onclick=()=>{$('floatingRemote').hidden=true;$('remoteFab').hidden=!previewImage;remoteVisible=false};
+$('remoteBlock').onchange=e=>{selectedBlock=+e.target.value;renderWidthControls()};
+$('remoteWidth').oninput=e=>updateSelectedWidth(e.target.value);
+$('remotePercent').onchange=e=>updateSelectedWidth(e.target.value);
+$('remoteAdjust').onchange=e=>{document.querySelector(`input[name="adjustMode"][value="${e.target.value}"]`).checked=true;renderWidthControls()};
+$('remoteReset').onclick=resetWidthFractions;
+$('remoteGo').onclick=()=>$('previewScroll').scrollIntoView({behavior:'smooth',block:'center'});
+// The remote stays visible as the user scrolls between the preview and settings.
+// Move it by dragging its title bar; buttons and inputs remain interactive.
+(()=>{const head=document.querySelector('.remote-head'),remote=$('floatingRemote');let origin=null;
+ head.addEventListener('pointerdown',e=>{if(e.target.closest('button'))return;const r=remote.getBoundingClientRect();origin={x:e.clientX,y:e.clientY,left:r.left,top:r.top};head.setPointerCapture(e.pointerId)});
+ head.addEventListener('pointermove',e=>{if(!origin)return;remote.style.left=Math.max(0,Math.min(innerWidth-remote.offsetWidth,origin.left+e.clientX-origin.x))+'px';remote.style.top=Math.max(0,Math.min(innerHeight-remote.offsetHeight,origin.top+e.clientY-origin.y))+'px';remote.style.right='auto';remote.style.bottom='auto'});
+ head.addEventListener('pointerup',()=>origin=null);head.addEventListener('pointercancel',()=>origin=null);
+})();
 </script></body></html>
